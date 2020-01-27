@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="exercises.AlexChat.controller.ChatController">
+   <children>
+      <TextField fx:id="Input" layoutX="100.0" layoutY="266.0" onAction="#onInput" promptText="Eingabe" />
+      <TextArea fx:id="Output" editable="false" layoutX="100.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" promptText="Ausgabe" />
+      <Button fx:id="send" layoutX="249.0" layoutY="266.0" mnemonicParsing="false" onAction="#echoMessage" prefHeight="25.0" prefWidth="46.0" text="Send" />
+      <Label layoutX="14.0" layoutY="34.0" prefHeight="17.0" prefWidth="86.0" text="Logged in as:" />
+      <TextField fx:id="UsernameField" editable="true" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="71.0" promptText="Username" />
+      <Button fx:id="UsernameSave" layoutX="24.0" layoutY="85.0" mnemonicParsing="false" onAction="#setUsername" text="Save" />
+   </children>
+</AnchorPane>

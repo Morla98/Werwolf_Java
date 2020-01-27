@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane fx:id="Event" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="370.0" visible="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EventController">
+   <children>
+      <Rectangle fx:id="background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="302.0" layoutX="-1.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
+      <AnchorPane fx:id="CupidEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="370.0" visible="false">
+         <children>
+            <Button layoutX="158.0" layoutY="215.0" mnemonicParsing="false" onAction="#endCupidEvent" text="Submit" />
+            <Label layoutX="64.0" layoutY="44.0" prefHeight="17.0" prefWidth="256.0" text="Fullfill your Role as Cupid and choose 2 Lovers" />
+            <ListView fx:id="CupidListView1" layoutX="37.0" layoutY="75.0" prefHeight="111.0" prefWidth="122.0" />
+            <ListView fx:id="CupidListView2" layoutX="213.0" layoutY="75.0" prefHeight="111.0" prefWidth="122.0" />
+            <Label fx:id="Eventname1" alignment="CENTER" layoutX="90.0" layoutY="14.0" prefHeight="34.0" prefWidth="191.0" text="Cupid Event">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="CupidWarningLabel" alignment="CENTER" layoutX="72.0" layoutY="250.0" prefHeight="17.0" prefWidth="240.0" text="Bitte nicht dieselbe Person 2x auswählen" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="WitchEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="370.0" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="90.0" layoutY="14.0" prefHeight="34.0" prefWidth="191.0" text="Witch Event">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <AnchorPane fx:id="WitchEventHeal" layoutX="90.0" layoutY="14.0" visible="false">
+               <children>
+                  <Button layoutY="136.0" mnemonicParsing="false" onAction="#endWitchHealYes" prefHeight="37.0" prefWidth="67.0" text="Yes">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="124.0" layoutY="136.0" mnemonicParsing="false" onAction="#endWitchHealNo" prefHeight="37.0" prefWidth="67.0" text="No">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="WitchHealLabel" alignment="CENTER" layoutX="-33.0" layoutY="49.0" prefHeight="25.0" prefWidth="268.0" text="Professor Moriati the Third is dying">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="74.0" text="Do you want to save him?">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="WitchEventKill" layoutX="86.0" layoutY="50.0" visible="false">
+               <children>
+                  <Label text="Choose someone to poison!">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="WitchKillListView" layoutY="27.0" prefHeight="111.0" prefWidth="200.0" />
+                  <Button layoutX="72.0" layoutY="147.0" mnemonicParsing="false" onAction="#endWitchKillYes" prefHeight="25.0" prefWidth="54.0" text="KILL">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="132.0" layoutY="206.0" mnemonicParsing="false" onAction="#endWitchKillNo" prefHeight="30.0" prefWidth="136.0" text="Dont kill someone">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="SeerEvent" layoutX="84.0" layoutY="14.0" visible="false">
+         <children>
+            <Label layoutX="48.0" text="Seer Event">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutY="34.0" text="Select the player to examine:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ListView fx:id="SeerListView" layoutX="1.0" layoutY="59.0" prefHeight="128.0" prefWidth="200.0" />
+            <Button layoutX="67.0" layoutY="194.0" mnemonicParsing="false" onAction="#endSeer" text="Submit">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="HunterEvent" layoutX="34.0" layoutY="14.0" visible="false">
+         <children>
+            <Label layoutX="85.0" text="Hunter Event">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <ListView fx:id="HunterListView" layoutX="51.0" layoutY="87.0" prefHeight="148.0" prefWidth="200.0" />
+            <Button layoutX="125.0" layoutY="247.0" mnemonicParsing="false" onAction="#endHunterYes" prefHeight="25.0" prefWidth="54.0" text="KILL" />
+            <Label layoutX="66.0" layoutY="34.0" text="Unfortunately, you died.">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutY="59.0" text="Choose a player you want to take with you.">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="262.0" layoutY="247.0" mnemonicParsing="false" onAction="#endHunterNo" text="Dont Kill" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="MayorEvent" layoutX="44.0" layoutY="14.0" visible="false">
+         <children>
+            <Label layoutX="56.0" text="Mayor's decision">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="53.0" layoutY="34.0" text="Your village can't decide.">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutY="59.0" text="Now it's up to you to choose the right one.">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ListView fx:id="MayorListView" layoutX="41.0" layoutY="84.0" prefHeight="90.0" prefWidth="200.0" />
+            <Button layoutX="115.0" layoutY="187.0" mnemonicParsing="false" onAction="#endMayorEvent" text="JUDGE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="MayorCandidateVote" layoutX="54.0" layoutY="24.0" visible="false">
+         <children>
+            <Label layoutX="56.0" prefHeight="34.0" prefWidth="183.0" text="Mayoral Elections">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="75.0" layoutY="34.0" text="Choose the player ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="9.0" layoutY="59.0" text="you think best to represent the village">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ListView fx:id="MayorElectionListView" layoutX="41.0" layoutY="84.0" prefHeight="90.0" prefWidth="200.0" />
+            <Button layoutX="115.0" layoutY="187.0" mnemonicParsing="false" onAction="#endMayorElection" text="VOTE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
