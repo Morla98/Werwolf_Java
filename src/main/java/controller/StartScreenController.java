@@ -13,32 +13,52 @@ import network.model.Message;
 
 public class StartScreenController extends Controller{
     @FXML
-    ImageView BackgroundView;
+    ImageView BackgroundStartScreen;
     @FXML
     Button HostButton;
     @FXML
     Button JoinButton;
-    @FXML
-    Button StartButton;
-    public void StartButtonPressed(){
-        DecideHostOrJoin();
+
+
+    public void initScreen(){
+        Image Background = new Image(getClass().getResource("/backgrounds/background_0.1.0.gif").toString());
+        BackgroundStartScreen.setImage(Background);
     }
+
+    // Button functions ------------------------------------------------------------------------------------------------
     public void startHost(){
+        /*
+        * Called when "Host Game" button is pressed.
+        * */
         game.startHost();
     }
     public void startJoin(){
+        /*
+         * Called when "Join Game" button is pressed.
+         * */
         game.startJoin(false);
     }
-    private void DecideHostOrJoin() {
-        StartButton.setVisible(false);
-        HostButton.setVisible(true);
-        JoinButton.setVisible(true);
+
+    public void ExitButtonPressed(){
+        /*
+         * Called when "Exit" button is pressed.
+         * */
+        Exit();
     }
-    public void DisableVoteButtons(){
-        throw new IllegalStateException();
+
+    public void SettingButtonPressed(){
+        game.Settings();
     }
-    public void EnableVoteButtons(){
-        throw new IllegalStateException();
+
+    // Controller methods ----------------------------------------------------------------------------------------------
+    @Override
+    public void Exit(){
+        /*
+         * Closes the game window.
+         */
+        game.getPrimaryStage().hide();
+        System.out.println("Exit");
+        System.exit(0);
     }
 
     @Override
@@ -48,36 +68,21 @@ public class StartScreenController extends Controller{
     public void hideTimer(){throw new IllegalStateException();}
 
     @Override
-    public void addText(String s) {
+    public void addText(String s) {}
 
-    }
-
-    public void initScreen(){
-        Image Background = new Image(getClass().getResource("/backgrounds/LogoVersion1.png").toString());
-        BackgroundView.setImage(Background);
-    }
-    @Override
-    public void Exit(){
-        game.getPrimaryStage().hide();
-        System.out.println("Exit");
-        System.exit(0);
-    }
     @Override
     public void printMessage(Message m){
         System.out.println(m.getSender() + ":" + m.getMessage());
     }
+
     @Override
     public void setGame(Game g){this.game = g;}
+
     @Override
     public void TestFunction(){
         // Stuff
     }
-    public void SettingButtonPressed(){
-        game.Settings();
-    }
-    public void ExitButtonPressed(){
-        Exit();
-    }
+
     @Override
     public void setTimer(int i){
         throw new IllegalStateException();
@@ -87,12 +92,21 @@ public class StartScreenController extends Controller{
         throw new IllegalStateException();
     }
     @Override
-    public void sendMessage(){
+    public void sendMessage(){}
 
-    }
     @Override
-    public void setPhase(String phase){
-    }
+    public void setPhase(String phase){}
+
     @Override
     public void setPrimaryStage(Stage s){this.primaryStage = s;}
+
+    public void DisableVoteButtons(){
+        throw new IllegalStateException();
+    }
+
+    public void EnableVoteButtons(){
+        throw new IllegalStateException();
+    }
 }
+
+

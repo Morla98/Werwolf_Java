@@ -8,6 +8,6 @@ class Main {
 
     public static void main(String[] args) {
         Game Werwolfgame = new Game();
-        Werwolfgame.main(args);
+        Game.main(args);
     }
 }

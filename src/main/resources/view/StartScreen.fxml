@@ -4,53 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartScreenController">
-   <ImageView fx:id="BackgroundView" fitHeight="615.0" fitWidth="815.0" focusTraversable="true" pickOnBounds="true" smooth="false" />
-   <Label layoutX="314.0" layoutY="103.0" prefHeight="65.0" prefWidth="173.0" text="Werwolf">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartScreenController">
+   <ImageView fx:id="BackgroundStartScreen" fitHeight="615.0" fitWidth="815.0" focusTraversable="true" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Button layoutX="326.0" layoutY="424.0" mnemonicParsing="false" onAction="#ExitButtonPressed" prefHeight="65.0" prefWidth="150.0" text="Exit">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </Button>
+   <Button fx:id="HostButton" layoutX="326.0" layoutY="229.0" mnemonicParsing="false" onAction="#startHost" prefHeight="65.0" prefWidth="150.0" text="Host Game" wrapText="true">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </Button>
+   <Button fx:id="JoinButton" layoutX="326.0" layoutY="308.0" mnemonicParsing="false" onAction="#startJoin" prefHeight="65.0" prefWidth="150.0" text="Join Game" wrapText="true">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </Button>
+   <Label alignment="CENTER" contentDisplay="TOP" layoutX="255.0" layoutY="94.0" prefHeight="65.0" prefWidth="290.0" text="Werwolf" textAlignment="CENTER">
       <font>
          <Font size="44.0" />
       </font>
-      <textFill>
-         <RadialGradient centerX="0.5" centerY="0.9319727943057106" cycleMethod="REFLECT" radius="0.5">
-            <stops>
-               <Stop color="#eb0505" />
-               <Stop color="WHITE" offset="1.0" />
-            </stops>
-         </RadialGradient>
-      </textFill>
    </Label>
-   <Button fx:id="StartButton" layoutX="341.0" layoutY="235.0" mnemonicParsing="false" onAction="#StartButtonPressed" prefHeight="65.0" prefWidth="118.0" text="Start Game">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
-   <Button layoutX="341.0" layoutY="326.0" mnemonicParsing="false" onAction="#ExitButtonPressed" prefHeight="65.0" prefWidth="118.0" text="Exit">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
-   <Button layoutX="223.0" layoutY="235.0" mnemonicParsing="false" onAction="#StartButtonPressed" prefHeight="65.0" prefWidth="118.0" text="Host Game" visible="false">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
-   <Button layoutX="459.0" layoutY="235.0" mnemonicParsing="false" onAction="#StartButtonPressed" prefHeight="65.0" prefWidth="118.0" text="Join Game" visible="false">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
-   <Button fx:id="HostButton" layoutX="223.0" layoutY="235.0" mnemonicParsing="false" onAction="#startHost" prefHeight="65.0" prefWidth="118.0" text="Host Game" visible="false">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
-   <Button fx:id="JoinButton" layoutX="459.0" layoutY="235.0" mnemonicParsing="false" onAction="#startJoin" prefHeight="65.0" prefWidth="118.0" text="Join Game" visible="false">
-      <font>
-         <Font name="System Bold Italic" size="17.0" />
-      </font>
-   </Button>
 </AnchorPane>

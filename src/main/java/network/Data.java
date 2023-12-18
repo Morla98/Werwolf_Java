@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * The Data class containing all of the game data
+ * The Data class containing all the game data
  * @author Tim Berger
  */
 public class Data implements Serializable {

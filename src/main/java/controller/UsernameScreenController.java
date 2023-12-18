@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import network.client.Client;
@@ -21,16 +23,18 @@ public class UsernameScreenController extends Controller {
     @FXML
     Button SubmitButton;
     @FXML
+    Button BackButton;
+    @FXML
     TextField UsernameField;
     @FXML
-    Label HostJoinLabel;
+    Label InfoLabel;
     @FXML
     TextField IPField;
     @FXML
-    Label UsernameEmpty;
+    ImageView BackgroundUsernameScreen;
 
     public void EnableJoin(){
-        HostJoinLabel.setText("Enter the IP address of the server:");
+        setInfo("Enter the IP of your host");
         IPField.setEditable(true);
         UsernameField.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -61,20 +65,33 @@ public class UsernameScreenController extends Controller {
     public void addText(String s) {
     }
 
-    public void SetError(String s){
+    public void setError(String s){
         Platform.runLater(()->{
-            UsernameEmpty.setText(s);
-            UsernameEmpty.setVisible(true);
+            InfoLabel.setStyle("-fx-border-color: #241829 #241829 #241829 #241829;\n" +
+                                "-fx-border-radius: 5 5 5 5; \n" +
+                                "-fx-background-radius: 5 5 5 5;\n" +
+                                "-fx-background-color: #78424f");
+            InfoLabel.setText(s);
+        });
+    }
+
+    public void setInfo(String s){
+        Platform.runLater(()->{
+            InfoLabel.setStyle("-fx-border-color: #241829 #241829 #241829 #241829;\n" +
+                                "-fx-border-radius: 5 5 5 5; \n" +
+                                "-fx-background-radius: 5 5 5 5;\n" +
+                                "-fx-background-color: #8cb49c");
+            InfoLabel.setText(s);
         });
     }
 
     private boolean validUsername(String username) {
         if((username.equals("")) || (username.charAt(0) == ' ') || ((username.length() - 1)) == ' '){
-            SetError("Username is Empty");
+            setError("Username is Empty");
             return false;
         }
         if(username.length() < 3){
-            SetError("Username is to short");
+            setError("Username is to short");
             return false;
         }
         for(int i = 0; i < username.length(); i++) {
@@ -84,7 +101,7 @@ public class UsernameScreenController extends Controller {
     }
 
     public void EnableHost(){
-        HostJoinLabel.setText("The IP address of your server is:");
+        setInfo("Local IP detected");
         IPField.setEditable(false);
         try {
             IPField.setText(Inet4Address.getLocalHost().getHostAddress());
@@ -112,11 +129,18 @@ public class UsernameScreenController extends Controller {
     public void incrementTimer(){
         throw new IllegalStateException();
     }
+
+
+    @FXML
+    private void backToStart(){
+        game.start(this.primaryStage);
+    }
+
     @FXML
     private void SubmitUsername(){
         String Username = UsernameField.getText();
         if(!(validUsername(Username))) {
-            UsernameEmpty.setVisible(true);
+            InfoLabel.setVisible(true);
             return;
         }
         String ServerIP = IPField.getText();
@@ -130,6 +154,7 @@ public class UsernameScreenController extends Controller {
         Thread clientThread = new Thread(c);
         game.setClient(c, clientThread);
         clientThread.start();
+
     }
 
     @Override
@@ -150,5 +175,8 @@ public class UsernameScreenController extends Controller {
     @Override
     public void setGame(Game g){this.game = g;}
     @Override
-    public void setPrimaryStage(Stage s){this.primaryStage = s;}
+    public void setPrimaryStage(Stage s){this.primaryStage = s;
+        Image Background = new Image(getClass().getResource("/backgrounds/background_0.1.0.gif").toString());
+        BackgroundUsernameScreen.setImage(Background);
+    }
 }

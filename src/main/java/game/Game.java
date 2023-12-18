@@ -17,7 +17,10 @@ import network.model.Message;
 import network.model.Tuple;
 import network.server.Server;
 
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -40,6 +43,7 @@ public class Game extends Application {
     private WerewolfGame Logic;
     private Server server;
     private Thread clientThread;
+    private Thread musicThread;
     private ArrayList<Tuple> Spielerliste;
     private boolean isPreparing = true;
     private Player TownDecisionPlayer;
@@ -116,14 +120,20 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         try {
-            // Parent root = FXMLLoader.load(getClass().getResource(view/StartScreen.fxml));
+            musicThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    playWavFile("/sounds/bg_sound.wav");
+                }
+            });
+            musicThread.start();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/StartScreen.fxml"));
             Parent root = loader.load();
             ScreenController = loader.getController();
             ScreenController.initScreen();
             initController();
-            Scene scene = new Scene(root,800,600);
+            Scene scene = new Scene(root,815,615);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.setTitle("Werwolf the Game");
@@ -132,6 +142,66 @@ public class Game extends Application {
             e.printStackTrace();
         }
     }
+
+
+    private void playWavFile(String fileName) {
+        InputStream inputStream = getClass().getResourceAsStream(fileName);
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                inputStream);
+        AudioInputStream audioStream = null;
+        AudioFormat audioFormat = null;
+
+        try {
+            audioStream = AudioSystem.getAudioInputStream(bufferedInputStream);
+            audioFormat = audioStream.getFormat();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class,
+                audioFormat);
+        SourceDataLine sourceLine;
+        try {
+            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+            sourceLine.open(audioFormat);
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        sourceLine.start();
+
+        int nBytesRead = 0;
+        byte[] abData = new byte[128000];
+        while (nBytesRead != -1) {
+            try {
+                nBytesRead = audioStream.read(abData, 0, abData.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (nBytesRead >= 0) {
+                sourceLine.write(abData, 0, nBytesRead);
+            }
+        }
+
+        sourceLine.drain();
+        sourceLine.close();
+
+        try {
+            audioStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     /**
      * This function is called after confirming the username. Here the game object and the exercises.client are generated and
@@ -176,7 +246,7 @@ public class Game extends Application {
         Thread LogicThread = new Thread(Logic);
         LogicThread.start();
         */
-        ScreenController.setPhase("Preperation Phase");
+        ScreenController.setPhase("Preparation Phase");
     }
 
     private void initController(){
@@ -248,14 +318,14 @@ public class Game extends Application {
             primaryStage.setScene(new Scene(root));
             UsernameScreenController s = loader.getController();
             s.EnableJoin();
-            if(b) s.SetError("Username is already taken");
+            if(b) s.setError("Username is already taken");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     /**
      * This function first covers Join and Host.
-     * Currently she opens a new scene where you can enter your username.
+     * Currently, she opens a new scene where you can enter your username.
      * This will be changed later
      */
     @SuppressWarnings("Duplicates")
