@@ -123,7 +123,9 @@ public class Game extends Application {
             musicThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    playWavFile("/sounds/bg_sound.wav");
+                    while(true){
+                        playWavFile("/sounds/bg_sound.wav");
+                    }
                 }
             });
             musicThread.start();

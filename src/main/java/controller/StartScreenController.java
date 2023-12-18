@@ -21,7 +21,7 @@ public class StartScreenController extends Controller{
 
 
     public void initScreen(){
-        Image Background = new Image(getClass().getResource("/backgrounds/background_0.1.0.gif").toString());
+        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
         BackgroundStartScreen.setImage(Background);
     }
 

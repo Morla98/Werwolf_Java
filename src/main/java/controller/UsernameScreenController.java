@@ -175,8 +175,9 @@ public class UsernameScreenController extends Controller {
     @Override
     public void setGame(Game g){this.game = g;}
     @Override
-    public void setPrimaryStage(Stage s){this.primaryStage = s;
-        Image Background = new Image(getClass().getResource("/backgrounds/background_0.1.0.gif").toString());
+    public void setPrimaryStage(Stage s){
+        this.primaryStage = s;
+        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
         BackgroundUsernameScreen.setImage(Background);
     }
 }

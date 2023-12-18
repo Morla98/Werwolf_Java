@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartScreenController">
-   <ImageView fx:id="BackgroundStartScreen" fitHeight="615.0" fitWidth="815.0" focusTraversable="true" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <ImageView fx:id="BackgroundStartScreen" fitHeight="615.0" fitWidth="815.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    <Button layoutX="326.0" layoutY="424.0" mnemonicParsing="false" onAction="#ExitButtonPressed" prefHeight="65.0" prefWidth="150.0" text="Exit">
       <font>
          <Font name="System Bold" size="17.0" />

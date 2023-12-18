@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import models.Player;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
  * @author Lukas Allermann */
 @SuppressWarnings("Duplicates")
 public class DayScreenController extends Controller{
+    @FXML
+    ImageView BackgroundDayScreen;
     @FXML
     TextArea RoleInformationField;
     @FXML
@@ -137,6 +141,8 @@ public class DayScreenController extends Controller{
      * This function initializes the screen, creates the lists of labels and buttons, configures the chat
      */
     public void initScreen(){
+        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
+        BackgroundDayScreen.setImage(Background);
         EventWindowController.setGame(game);
         ChatInputDay.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -367,44 +373,44 @@ public class DayScreenController extends Controller{
     }
     public void PlayerVote1(){
         Player p[] = game.getPlayers();
-        Message m = new Message(game.getMe().getName(), "I votet for " + p[0].getName() + "!", "ALL");
+        Message m = new Message(game.getMe().getName(), "I voted for " + p[0].getName() + "!", "ALL");
         game.setTownDecisionPlayer(p[0]);
         game.sendMessage(m);
     }
     public void PlayerVote2(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[1]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[1].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[1].getName() + "!", "ALL"));
     }
     public void PlayerVote3(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[2]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[2].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[2].getName() + "!", "ALL"));
     }
     public void PlayerVote4(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[3]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[3].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[3].getName() + "!", "ALL"));
     }
     public void PlayerVote5(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[4]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[4].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[4].getName() + "!", "ALL"));
     }
     public void PlayerVote6(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[5]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[5].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[5].getName() + "!", "ALL"));
     }
     public void PlayerVote7(){
         Player p[] = game.getPlayers();
         game.setTownDecisionPlayer(p[6]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[6].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[6].getName() + "!", "ALL"));
     }
     public void PlayerVote8(){
-        Player p[] = game.getPlayers();
+        Player[] p = game.getPlayers();
         game.setTownDecisionPlayer(p[7]);
-        game.sendMessage(new Message(game.getMe().getName(), "I votet for " + p[7].getName() + "!", "ALL"));
+        game.sendMessage(new Message(game.getMe().getName(), "I voted for " + p[7].getName() + "!", "ALL"));
     }
     public void updatePrepareScreen(Datapacket d){
         // d.getData().getTuple();
