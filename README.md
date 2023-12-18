@@ -139,7 +139,7 @@ Falls es sich bei den Liebenden nicht um dieselbe Spezies handelt sondern um gut
 In dem Moment, wo ein Spieler einen Server hostet, wird eine Art Lobby erstellt.
 Sobald die Lobby voll ist (7 Spieler), beginnt das Spiel und jedem Spieler wird eine Rolle zugewiesen.
 Ein Spiel läuft folgender Weise ab:
-![Alt-Text](Spielablauf WWGame.jpg)
+![Alt-Text](SpielablaufWWGame.jpg)
 
 Das Spiel betritt nach der Startphase einen Kreislauf. Wenn aufrund des Spielgeschehens der amtierende Bürgermeister sterben sollte, findet eine Neuwahl statt, worauf dann der normale Spielverlauf fortgesetzt wird. Sollten die Spieler welche wichtige Stationspunkte des Kreislaufes vertreten bereits verstorben sein, wird diese Phase übersprungen. Das Spiel überprüft an den wichtigen Stellen den aktuellen Stand und beendet das Spiel sollte einer der "Win Conditions" erfüllt sein. Tote Spieler können den Spielgeschehen weiter folgen, haben aber keinerlei Auswirkung mehr auf den Rest des Spieles. Sie können weder den Chat benutzen noch ihre Rolle ausführen, geschweige denn Voten. Allerdings müssen Tote Spieler das Spiel bis zum Ende offen haben.
 ### Wichtige Klassen der Logik:
