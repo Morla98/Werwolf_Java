@@ -1,5 +1,5 @@
-#Werewolf
-##Inhalt 
+# Werewolf
+## Inhalt 
 1. Einleitung
 2. Informationen zur Arbeit am Projekt
 3. Logik    
@@ -96,7 +96,7 @@ Der simulierte Server fragt per print-Befehl nach Entscheidung des Spielers und 
 
 Während dem Erstellen der Simulation wurden die Rollen-Klassen als auch die Spieler-Klasse angefertigt, welche später benutzt wurden.
 Die Methoden aus der Simulation wurden dann für den GameServer teils übernommen oder verändert wiederverwertet.
-###Rollen
+### Rollen
 Wie bei dem Original gibt es auch hier mehrer Rollen. Es werden alle bis auf das "blinzelnde Mädchen" realisiert (Erweiterungen nicht mitgerechnet). Die Rolle eines Spielers ist geheim und wird erst mit dem Tod für andere Spieler sichtbar.
 #### Zivilist:
 Der Zivilist besitzt keine besonderen Fähigkeiten. Er stimmt wie jeder andere Bürger bei Tage über Bürgermeister und Hinrichtung ab und darf wie jede andere Rolle sich bei Tage im Chat mit den anderen unterhalten.
@@ -152,7 +152,8 @@ Diese Klasse regelt die Logik auf  der Server Seite und fungiert als übergeordn
 Der Server hat den aktuellsten Spielstand und sendet regelmäßig Updates an alle Clients. Zudem wird hier die Win-Condition überprüft.
 #### Timer
 Diese Klasse symbolisiert einen frei einstellbaren Timer, seine Hauptaufgabe ist für die Werwolf bzw. TownVote Phase, jede Sekunde die GUI zu aktualisieren und nachdem der Timer abgelaufen ist eine bestimmte Funktion aufzurufen welche den letzen Buttonklick der vorangegangenen Phase an den Server schickt. Damit dieser nicht den Application Thread blockiert betreibt er einen eigenen Thread.
-##Networking
+<br>
+## Networking
 ### Allgemein
 Das Networking im Spiel wird mithilfe des java.net packages und des java.io Package durchgeführt.
 Es ist einfach aufgebaut in der Hinsicht, dass es einen Server gibt auf dem Clients joinen können und über welchen dann Daten an Clients gesendet werden.
