@@ -18,7 +18,7 @@ class TimerThread implements Runnable{
     @Override
     public void run() {
         for(int i = 0; i < Seconds; i++){
-            timer.getGame().getScreenController().incrementTimer();
+            timer.getGame().getController().incrementTimer();
             try {
                 Thread.sleep(StepSize);
                 System.out.println("Timer: " + i);

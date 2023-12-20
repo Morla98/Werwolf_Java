@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DayScreenController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameScreenController">
    <children>
       <ImageView fx:id="BackgroundDayScreen" fitHeight="615.0" fitWidth="815.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <TextArea fx:id="RoleInformationField" editable="false" layoutX="551.0" layoutY="14.0" opacity="0.69" prefHeight="245.0" prefWidth="235.0" promptText="Role Information" wrapText="true" />
@@ -44,7 +44,6 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Button fx:id="ExitButton" layoutX="751.0" layoutY="563.0" mnemonicParsing="false" onAction="#Exit" text="Exit" />
       <Label layoutX="14.0" layoutY="567.0" prefHeight="17.0" prefWidth="91.0" text="Logged in as:" />
       <Label fx:id="UsernameLabel" layoutX="108.0" layoutY="567.0" prefHeight="17.0" prefWidth="139.0" />
       <Button fx:id="TestButton" layoutX="580.0" layoutY="526.0" mnemonicParsing="false" onAction="#TestFunction" text="TestButton" textAlignment="CENTER" visible="false" />

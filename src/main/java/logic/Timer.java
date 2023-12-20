@@ -35,12 +35,11 @@ public class Timer {
     }
     public void start(int s){
         Thread t = new Thread(()->{
-            game.getScreenController().setTimer(s);
-            game.getNightScreenController().setTimer(s);
-            game.getDayScreenController().setTimer(s);
+            game.getController().setTimer(s);
+            game.getGameScreenController().setTimer(s);
             System.out.println("Starting Timer");
             for(int i = 0; i < s; i++){
-                getGame().getScreenController().incrementTimer();
+                getGame().getController().incrementTimer();
                 try {
                     Thread.sleep(StepSize);
                     System.out.println("Timer: " + i);
@@ -56,12 +55,11 @@ public class Timer {
     }
     public void start(){
         Thread t = new Thread(() -> {
-            game.getScreenController().setTimer(seconds);
-            game.getNightScreenController().setTimer(seconds);
-            game.getDayScreenController().setTimer(seconds);
+            game.getController().setTimer(seconds);
+            game.getGameScreenController().setTimer(seconds);
             System.out.println("Starting Timer");
             for(int i = 0; i < seconds; i++){
-                getGame().getScreenController().incrementTimer();
+                getGame().getController().incrementTimer();
                 try {
                     Thread.sleep(StepSize);
                     System.out.println("Timer: " + i);
@@ -76,21 +74,19 @@ public class Timer {
         t.start();
     }
     public void hideTimer(){
-        game.getDayScreenController().hideTimer();
-        game.getNightScreenController().hideTimer();
+        game.getGameScreenController().hideTimer();
     }
     public Game getGame() {
         return this.game;
     }
     public void startWerewolfTimer(){
-        game.getNightScreenController().EnableVoteButtons();
+        game.getGameScreenController().EnableVoteButtons();
         Thread t = new Thread(()->{
-            game.getScreenController().setTimer(seconds);
-            game.getNightScreenController().setTimer(seconds);
-            game.getDayScreenController().setTimer(seconds);
+            game.getController().setTimer(seconds);
+            game.getGameScreenController().setTimer(seconds);
             System.out.println("Starting Timer");
             for(int i = 0; i < seconds; i++){
-                getGame().getScreenController().incrementTimer();
+                getGame().getController().incrementTimer();
                 try {
                     Thread.sleep(StepSize);
                     System.out.println("Timer: " + i);
@@ -107,14 +103,13 @@ public class Timer {
         t.start();
     }
     public void startTownTimer() {
-        game.getNightScreenController().EnableVoteButtons();
+        game.getGameScreenController().EnableVoteButtons();
         Thread t = new Thread(() -> {
-            game.getScreenController().setTimer(seconds);
-            game.getNightScreenController().setTimer(seconds);
-            game.getDayScreenController().setTimer(seconds);
+            game.getController().setTimer(seconds);
+            game.getGameScreenController().setTimer(seconds);
             System.out.println("Starting Timer");
             for (int i = 0; i < seconds; i++) {
-                getGame().getScreenController().incrementTimer();
+                getGame().getController().incrementTimer();
                 try {
                     Thread.sleep(StepSize);
                     System.out.println("Timer: " + i);

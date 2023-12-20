@@ -3,7 +3,6 @@ package controller;
 import game.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import network.model.Message;
@@ -21,8 +20,8 @@ public class StartScreenController extends Controller{
 
 
     public void initScreen(){
-        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
-        BackgroundStartScreen.setImage(Background);
+       // Image Background = new Image(getClass().getResource("/imgs/background_0.2.0.gif").toString());
+       // BackgroundStartScreen.setImage(Background);
     }
 
     // Button functions ------------------------------------------------------------------------------------------------
@@ -39,27 +38,7 @@ public class StartScreenController extends Controller{
         game.startJoin(false);
     }
 
-    public void ExitButtonPressed(){
-        /*
-         * Called when "Exit" button is pressed.
-         * */
-        Exit();
-    }
-
-    public void SettingButtonPressed(){
-        game.Settings();
-    }
-
     // Controller methods ----------------------------------------------------------------------------------------------
-    @Override
-    public void Exit(){
-        /*
-         * Closes the game window.
-         */
-        game.getPrimaryStage().hide();
-        System.out.println("Exit");
-        System.exit(0);
-    }
 
     @Override
     public void updateScreen(boolean t) {
@@ -100,6 +79,8 @@ public class StartScreenController extends Controller{
     @Override
     public void setPrimaryStage(Stage s){this.primaryStage = s;}
 
+
+
     public void DisableVoteButtons(){
         throw new IllegalStateException();
     }
@@ -107,6 +88,7 @@ public class StartScreenController extends Controller{
     public void EnableVoteButtons(){
         throw new IllegalStateException();
     }
+
 }
 
 

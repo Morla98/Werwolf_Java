@@ -90,7 +90,7 @@ public class WerewolfGame{
             if(nextStep.equals("Couple")) {
                 if (couple == null) {
                     game.updateStartScreen();
-                    game.getDayScreenController().setPhase("Cupid Move");
+                    game.getGameScreenController().setPhase("Cupid Move");
                     if (me.getRole().getName().equals("Cupid")) {
                         this.couple = new Player[2];
                         game.callCupidEvent();
@@ -117,7 +117,7 @@ public class WerewolfGame{
 
         }
         if(data.getTag().equals("UPDATE")) {
-            if (me == null) game.getDayScreenController().addText("----------------\nDay " + dayCount + " has started\n----------------");
+            if (me == null) game.getGameScreenController().addText("----------------\nDay " + dayCount + " has started\n----------------");
             this.dayCount = data.getDaycount();
             this.players = data.getAllPlayers();
             this.alivePlayers = data.getAlivePlayers();
@@ -163,11 +163,11 @@ public class WerewolfGame{
             this.couple[1] = choosen2;
             if(me.getName().equals(choosen1.getName())) {
                 me.setLover(choosen2);
-                game.getDayScreenController().addText("Server: You have fallen in love with " + choosen2.getName());
+                game.getGameScreenController().addText("Server: You have fallen in love with " + choosen2.getName());
             }
             if(me.getName().equals(choosen2.getName())){
                 me.setLover(choosen1);
-                game.getDayScreenController().addText("Server: You have fallen in love with " + choosen1.getName());
+                game.getGameScreenController().addText("Server: You have fallen in love with " + choosen1.getName());
             }
             game.updateScreen(false);
         }
@@ -285,8 +285,7 @@ public class WerewolfGame{
 
     private void WerewolfMove() {
         if(!game.isNight()) game.switchToNight();
-        game.getDayScreenController().DisableVoteButtons(); // Better more than to less
-        game.getNightScreenController().DisableVoteButtons(); // Better more than to less
+        game.getGameScreenController().DisableVoteButtons(); // Better more than to less
         game.updatePlayerList();
         game.callWerewolfPhase(35);
     }
@@ -321,11 +320,10 @@ public class WerewolfGame{
     }
 
     private void SeerMove(){
-        game.getDayScreenController().DisableVoteButtons();
-        game.getNightScreenController().DisableVoteButtons(); // better too much than too little.
+        game.getGameScreenController().DisableVoteButtons();
         game.switchToNight();
         game.updatePlayerList();
-        game.getNightScreenController().setPhase("Seer Move");
+        game.getGameScreenController().setPhase("Seer Move");
         if(me.getRole().getName().equals("Seer") && me.getAlive()) {
             game.callSeerEvent();
         }
@@ -354,9 +352,9 @@ public class WerewolfGame{
 
 
         while(true){
-            game.getScreenController().setTimer(120); // In This Testing purpose this is done by Hand
+            game.getController().setTimer(120); // In This Testing purpose this is done by Hand
             // game.getScreenController().setTimer(120);
-            game.getScreenController().setPhase("Preparing Phase"); // look above
+            game.getController().setPhase("Preparing Phase"); // look above
             try {
                 TestPhase();
             } catch (InterruptedException e) {
@@ -388,7 +386,7 @@ public class WerewolfGame{
     }
 
     public void WitchHealEvent(Player p){
-        game.getNightScreenController().setPhase("Witch Move");
+        game.getGameScreenController().setPhase("Witch Move");
         if(me.getRole().getName().equals("Witch")){
            if(me.getRole().getHealPotion()) game.callWitchHealEvent(p);
            else if(me.getRole().getDeathPotion())  game.callWitchKillEvent();
@@ -406,7 +404,7 @@ public class WerewolfGame{
      */
     public void EvaluationPhase(){
 
-        game.getScreenController().incrementTimer();
+        game.getController().incrementTimer();
     }
 
     /**
@@ -423,17 +421,17 @@ public class WerewolfGame{
     }
 
     private void TestPhase() throws InterruptedException {
-        game.getScreenController().EnableVoteButtons();
+        game.getController().EnableVoteButtons();
         for(int i = 0; i < 120; i++){
             Thread.sleep(1000); // Maybe change to 995-998 etc., thinking of processing time
-            game.getScreenController().incrementTimer();
+            game.getController().incrementTimer();
             /*  As this Loop goes on, the Players will be able to chat
                 In The VotinPhase the Players get Buttons to manipulate the Voting Array which can be
                 be evaluated after the Loop.*/
             // Testing
-            if(i == 3) game.getScreenController().setPhase("Another Preparing Phase");
+            if(i == 3) game.getController().setPhase("Another Preparing Phase");
         }
-        game.getScreenController().DisableVoteButtons();
+        game.getController().DisableVoteButtons();
 
 
     }

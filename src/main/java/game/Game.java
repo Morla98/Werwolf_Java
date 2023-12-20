@@ -1,12 +1,19 @@
 package game;
 
-import controller.*;
+import controller.Controller;
+import controller.EndScreenController;
+import controller.GameScreenController;
+import controller.UsernameScreenController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import logic.Timer;
 import logic.WerewolfGame;
 import models.Player;
@@ -23,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static java.lang.System.exit;
+
 /**
  * @author Lukas Allermann
  */
@@ -32,11 +41,10 @@ public class Game extends Application {
     private Player WerewolveDecisionPlayer;
     private boolean host;
     private Stage primaryStage;
-    private DayScreenController DayScreenController;
-    private NightScreenController NightScreenController;
-    private Controller ScreenController;
+    private GameScreenController gameScreenController;
+    private Controller controller;
     private String Username;
-    private Scene DayScene;
+    private Scene scene;
     private Scene NightScene;
     private Client client;
     private Player player;
@@ -48,6 +56,7 @@ public class Game extends Application {
     private boolean isPreparing = true;
     private Player TownDecisionPlayer;
     private String HunterJumpPoint;
+    private String serverIP;
 
 
     public void setPlayer(Player player){ this.player = player; }
@@ -59,17 +68,14 @@ public class Game extends Application {
     public void setLogic(WerewolfGame logic) {
         Logic = logic;
     }
-    public controller.DayScreenController getDayScreenController() {
-        return DayScreenController;
+    public GameScreenController getGameScreenController() {
+        return gameScreenController;
     }
-    public void setDayScreenController(controller.DayScreenController dayScreenController) {
-        DayScreenController = dayScreenController;
+    public void setGameScreenController(GameScreenController gameScreenController) {
+        this.gameScreenController = gameScreenController;
     }
     public void callTestEvent(){
-        DayScreenController.callTestEvent();
-    }
-    public controller.NightScreenController getNightScreenController() {
-        return NightScreenController;
+        gameScreenController.callTestEvent();
     }
 
     public ArrayList<Tuple> getSpielerliste() {
@@ -78,28 +84,17 @@ public class Game extends Application {
     public void setSpielerliste(ArrayList<Tuple> spielerliste) {
         Spielerliste = spielerliste;
     }
-
-    public void setNightScreenController(controller.NightScreenController nightScreenController) {
-        NightScreenController = nightScreenController;
+    public Controller getController() {
+        return controller;
     }
-    public Controller getScreenController() {
-        return ScreenController;
+    private void setController(Controller controller) {
+        this.controller = controller;
     }
-    private void setScreenController(Controller screenController) {
-        ScreenController = screenController;
+    private Scene getScene() {
+        return scene;
     }
-    private Scene getDayScene() {
-        return DayScene;
-    }
-    private String ServerIP;
-    public void setDayScene(Scene dayScene) {
-        DayScene = dayScene;
-    }
-    private Scene getNightScene() {
-        return NightScene;
-    }
-    public void setNightScene(Scene nightScene) {
-        NightScene = nightScene;
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
     public String getUsername() {
         return Username;
@@ -119,6 +114,7 @@ public class Game extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        // maximizeScreen();
         try {
             musicThread = new Thread(new Runnable() {
                 @Override
@@ -132,12 +128,19 @@ public class Game extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/StartScreen.fxml"));
             Parent root = loader.load();
-            ScreenController = loader.getController();
-            ScreenController.initScreen();
+            controller = loader.getController();
+            controller.initScreen();
             initController();
-            Scene scene = new Scene(root,815,615);
+            Scene scene = new Scene(root,1080,720);
+            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    exit(0);
+                }
+            });
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+
             primaryStage.setTitle("Werwolf the Game");
             primaryStage.show();
         } catch(Exception e) {
@@ -145,6 +148,25 @@ public class Game extends Application {
         }
     }
 
+    public void maximizeScreen(){
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        if (primaryStage.isFullScreen()) {
+            primaryStage.setWidth(1080);
+            primaryStage.setHeight(720);
+            primaryStage.setFullScreen(false);
+            System.out.println("Minimize");
+        } else {
+            primaryStage.setX(bounds.getMinX());
+            primaryStage.setY(bounds.getMinY());
+            primaryStage.setWidth(bounds.getWidth());
+            primaryStage.setHeight(bounds.getHeight());
+            primaryStage.setFullScreen(true);
+            System.out.println("Maximize");
+        }
+
+    }
 
     private void playWavFile(String fileName) {
         InputStream inputStream = getClass().getResourceAsStream(fileName);
@@ -218,28 +240,18 @@ public class Game extends Application {
          */
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("/view/DayScreen.fxml"));
+            loader.setLocation(getClass().getResource("/view/GameScreen-draft.fxml"));
             Parent root = loader.load();
-            this.DayScreenController = loader.getController();
-            ScreenController = DayScreenController;
-            ScreenController.hideTimer();
+            this.gameScreenController = loader.getController();
+            controller = gameScreenController;
+            controller.hideTimer();
             initController();
-            DayScreenController.initScreen();
-            if(this.host) {DayScreenController.EnableHost();}
-            this.DayScene = new Scene(root);
-            primaryStage.setScene(this.DayScene);
+            gameScreenController.initScreen();
+            if(this.host) {
+                gameScreenController.EnableHost();}
+            this.scene = new Scene(root);
+            primaryStage.setScene(this.scene);
             updatePrepareScreen(d);
-            FXMLLoader loader2 = new FXMLLoader();
-            loader2.setLocation(getClass().getResource("/view/NightScreen.fxml"));
-            Parent root2 = loader2.load();
-            NightScreenController = loader2.getController();
-            ScreenController = NightScreenController;
-            initController();
-            ScreenController = DayScreenController;
-            NightScreenController.initScreen();
-            this.NightScene = new Scene(root2);
-            this.NightScreenController = NightScreenController;
-            if(this.host) {NightScreenController.EnableHost();}
             // ((DayScreenController) ScreenController).EnableAllies(); Shows Allies for WerewolfSites, implementation later
         } catch (IOException e) {
             e.printStackTrace();
@@ -248,12 +260,12 @@ public class Game extends Application {
         Thread LogicThread = new Thread(Logic);
         LogicThread.start();
         */
-        ScreenController.setPhase("Preparation Phase");
+        controller.setPhase("Preparation Phase");
     }
 
     private void initController(){
-        ScreenController.setGame(this);
-        ScreenController.setPrimaryStage(this.primaryStage);
+        controller.setGame(this);
+        controller.setPrimaryStage(this.primaryStage);
     }
 
     public void connectionSuccess(Datapacket d){
@@ -261,7 +273,7 @@ public class Game extends Application {
     }
     public void connectionFailed(){
         this.client = null;
-        this.ServerIP = null;
+        this.serverIP = null;
         this.Username = null;
         this.startJoin(true);
     }
@@ -275,7 +287,7 @@ public class Game extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ScreenController.updateScreen(t);
+        controller.updateScreen(t);
     }
 
     /**
@@ -315,7 +327,7 @@ public class Game extends Application {
         try {
             loader.setLocation(getClass().getResource("/view/UsernameScreen.fxml"));
             Parent root = loader.load();
-            ScreenController = loader.getController();
+            controller = loader.getController();
             initController();
             primaryStage.setScene(new Scene(root));
             UsernameScreenController s = loader.getController();
@@ -341,7 +353,7 @@ public class Game extends Application {
         try {
             loader.setLocation(getClass().getResource("/view/UsernameScreen.fxml"));
             Parent root = loader.load();
-            ScreenController = loader.getController();
+            controller = loader.getController();
             initController();
             primaryStage.setScene(new Scene(root));
             ((UsernameScreenController)loader.getController()).EnableHost();
@@ -367,28 +379,35 @@ public class Game extends Application {
     }
 
     public void printMessage(Message newMsg) {
-        ScreenController.printMessage(newMsg);
+        controller.printMessage(newMsg);
     }
 
     public void setServerIP(String serverIP) {
-        this.ServerIP = serverIP;
+        this.serverIP = serverIP;
     }
+
+    public String getServerIP(){
+        return this.serverIP;
+    }
+
     public void callMayorElectionEvent(){
-        DayScreenController.callMayorElectionEvent();}
+        gameScreenController.callMayorElectionEvent();
+    }
+
     public void callHunterEvent() {
-        NightScreenController.callHunterEvent();
+        gameScreenController.callHunterEvent();
     }
 
     public void callMayorEvent() {
-        DayScreenController.callMayorEvent();
+        gameScreenController.callMayorEvent();
     }
 
     public void callWitchHealEvent(Player toheal) {
-        NightScreenController.callWitchHealEvent(toheal);
+        gameScreenController.callWitchHealEvent(toheal);
     }
 
     public void callWitchKillEvent() {
-        NightScreenController.callWitchKillEvent();
+        gameScreenController.callWitchKillEvent();
     }
 
     public void callCupidEvent() {
@@ -397,8 +416,8 @@ public class Game extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(DayScreenController != null) {
-            DayScreenController.callCupidEvent();
+        if(gameScreenController != null) {
+            gameScreenController.callCupidEvent();
         }else{
             System.out.println("DayScreenController is NULL");
         }
@@ -410,56 +429,55 @@ public class Game extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(NightScreenController != null) NightScreenController.callSeerEvent();
+        if(gameScreenController != null) gameScreenController.callSeerEvent();
     }
 
     public void endEvent() {
-        DayScreenController.endEvent();
-        NightScreenController.endEvent();
+        gameScreenController.endEvent();
     }
+
     public void callTownVotePhase(int length){
         Timer t = new Timer(this, length);
-        DayScreenController.setPhase("Town Phase");
-        DayScreenController.EnableVoteButtons();
+        gameScreenController.setPhase("Town Phase");
+        gameScreenController.EnableVoteButtons();
         t.startTownTimer();
     }
     public void callWerewolfPhase(int length){
         Platform.runLater( () -> {
             Timer t = new Timer(this, length);
             if(getMe().getRole().getEvil()) {
-                NightScreenController.setPhase("WerewolfPhase");
-                NightScreenController.EnableVoteButtons();
+                gameScreenController.setPhase("WerewolfPhase");
+                gameScreenController.EnableVoteButtons();
                 t.startWerewolfTimer();
             }else{
-                NightScreenController.setPhase("WerewolfPhase");
+                gameScreenController.setPhase("WerewolfPhase");
                 t.start();
             }
         });
     }
 
     public void switchToNight() {
-        setScreenController(NightScreenController);
+        // setController(NightScreenController);
         Platform.runLater(()->{
         System.out.println("Switched to NightScene");
-        NightScreenController.updateScreen(true);
+        gameScreenController.updateScreen(true);
         primaryStage.setScene(NightScene);
-        NightScreenController.addText("----------------\nNight " + getDayCounter() + " has started\n----------------");
+        gameScreenController.addText("----------------\nNight " + getDayCounter() + " has started\n----------------");
         });
     }
 
     public void updatePlayerList(){
-        DayScreenController.updateLists();
-        NightScreenController.updateLists();
+        gameScreenController.updateLists();
     }
     public void switchToDay() {
         Platform.runLater(()-> {
-            setScreenController(DayScreenController);
+            setController(gameScreenController);
             System.out.println("Switched to DayScene");
-            DayScreenController.updateScreen(true);
-            primaryStage.setScene(DayScene);
-            DayScreenController.addText("----------------");
-            DayScreenController.addText("Day "+ getDayCounter() + " has started");
-            DayScreenController.addText("----------------");
+            gameScreenController.updateScreen(true);
+            primaryStage.setScene(scene);
+            gameScreenController.addText("----------------");
+            gameScreenController.addText("Day "+ getDayCounter() + " has started");
+            gameScreenController.addText("----------------");
         });
     }
 
@@ -473,8 +491,7 @@ public class Game extends Application {
         return false;
     }
     public void hideTimer(){
-        DayScreenController.hideTimer();
-        NightScreenController.hideTimer();
+        gameScreenController.hideTimer();
     }
     public String getDayCounter() {
         return Integer.toString(Logic.getDayCount());
@@ -482,34 +499,22 @@ public class Game extends Application {
     public String getNightCounter() {
         return Integer.toString(Logic.getDayCount());
     }
-    public void switchScene(){
-        Platform.runLater(()-> {
-            if (getPrimaryStage().getScene().equals(getDayScene())) {
-                System.out.println("Switched to NightScene");
-                setScreenController(getNightScreenController());
-                getNightScreenController().updateScreen(true);
-                getPrimaryStage().setScene(getNightScene());
-            } else {
-                System.out.println("Switched to DayScene");
-                primaryStage.setScene(getDayScene());
-                getDayScreenController().updateScreen(true);
-                setScreenController(getDayScreenController());
-            }
-        });
-    }
-    public void updatePrepareScreen(Datapacket d){
-        if(DayScreenController != null){
-            DayScreenController.updatePrepareScreen(d);
-        }
 
+    public void updatePrepareScreen(Datapacket d){
+        if(gameScreenController != null){
+            gameScreenController.updatePrepareScreen(d);
+        }
     }
+
     public void setClient(Client c, Thread clientThread) {
         this.client = c;
         this.clientThread = clientThread;
     }
+
     public ArrayList<Player> getAlivePlayers() {
         return Logic.getAlivePlayers();
     }
+
     public ArrayList<Player> getMayorDecisionPossibilities() {
         return Logic.getMayorDecisionPossibilities();
     }
@@ -569,13 +574,13 @@ public class Game extends Application {
     }
     // TODO Weiterverarbeiten
     public void TownVoteDecision(Player choosen){
-        DayScreenController.DisableVoteButtons();
+        gameScreenController.DisableVoteButtons();
         if(choosen == null) choosen = new Player(".");
         client.sendGameObject(new Datapacket(2, null, null, new Data(choosen, "TownVote"), null));
     }
 
     public void WerewolfVoteDecision(Player choosen){
-        NightScreenController.DisableVoteButtons();
+        gameScreenController.DisableVoteButtons();
         if(choosen == null) choosen = new Player(".");
         client.sendGameObject(new Datapacket(2, null, null, new Data(choosen,"Werewolfmove"), null));
     }
@@ -602,17 +607,17 @@ public class Game extends Application {
     }
 
     public void addText(String t) {
-        ScreenController.addText(t);
+        controller.addText(t);
     }
 
     public boolean isNight() {
-        return ScreenController == NightScreenController;
+       //  return controller == NightScreenController; // todo
+        return false;
     }
 
     public void endGame(String reason) {
         Platform.runLater(()->{
-        DayScreenController.setPhase(reason);
-        NightScreenController.setPhase(reason);
+        gameScreenController.setPhase(reason);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/EndScreen.fxml"));
         try {

@@ -130,7 +130,7 @@ public class EventController {
             } else {
                 CupidEvent.setVisible(false);
                 Event.setVisible(false);
-                game.getDayScreenController().addText("SERVER: You shot your love arrows at "+ choosen1.getName() + " and " + choosen2.getName() + ". They fell in love!\n");
+                game.getGameScreenController().addText("SERVER: You shot your love arrows at "+ choosen1.getName() + " and " + choosen2.getName() + ". They fell in love!\n");
                 game.CupidDecision(choosen1, choosen2);
             }
         }else{
@@ -146,7 +146,7 @@ public class EventController {
             choosen2 = p.get(player2Index);
             CupidEvent.setVisible(false);
             Event.setVisible(false);
-            game.getDayScreenController().addText("SERVER: You shot your love arrows at "+ choosen1.getName() + " and " + choosen2.getName() + ". They fell in love!\n");
+            game.getGameScreenController().addText("SERVER: You shot your love arrows at "+ choosen1.getName() + " and " + choosen2.getName() + ". They fell in love!\n");
             game.CupidDecision(choosen1, choosen2);
         }
     }
@@ -154,7 +154,7 @@ public class EventController {
         ObservableList<Player> p = FXCollections.observableArrayList();
         p.setAll(game.getAlivePlayers());
         Platform.runLater(()-> MayorElectionListView.setItems(p));
-        game.getDayScreenController().setPhase("Mayor Election");
+        game.getGameScreenController().setPhase("Mayor Election");
         MayorCandidateVote.setVisible(true);
         Event.setVisible(true);
     }
@@ -205,9 +205,9 @@ public class EventController {
     void endSeer(){
         Player choosen = SeerListView.getSelectionModel().getSelectedItem();
             if(choosen.getRole().getEvil()){
-                game.getNightScreenController().addText("Seer Vision: Your vision tells you that your choice has an evil soul");
+                game.getGameScreenController().addText("Seer Vision: Your vision tells you that your choice has an evil soul");
             }else{
-                game.getNightScreenController().addText("Seer Vision: Your vision tells you that your choice has a good soul");
+                game.getGameScreenController().addText("Seer Vision: Your vision tells you that your choice has a good soul");
             }
         try {
             Thread.sleep(100);

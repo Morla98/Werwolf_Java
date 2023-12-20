@@ -87,8 +87,8 @@ Die Aufteilung der Themengebiete war wie folgt:
 * Tim Berger: Unterstützung beim Networking und der Logik
 
 Trotzdem hat jedes Gruppenmitglied bei Problemen in anderen Bereichen mitgeholfen.
-##Logik   
-###Simulation
+## Logik   
+### Simulation
 Zunächst einmal galt es sich über das Gesellschaftspiel "Die Werwöfle von Düsterwald" bzw. über die vom Prinzip ähnliche Online-Version "Town of Salem" zu informieren.
 
 Um nun ein Gefühl für den generellen Spielablauf zu erhalten und um erste Ansätze zu finden wurde eine Simulation angefertigt. Hierbei handelt sich um ein textbasiertes Spiel, wobei ein einzelner die Rolle von 8 Spielern übernimmt und auch Einsicht in all das Geschehen besitzt.
@@ -249,7 +249,7 @@ Beim Tod kann der Spieler trotzdem noch das Spielgeschehen folgen. Seine Rolenin
 #### Location not found
 Eine "Location not Found" Exception tritt dann auf wenn in der Projektstruktur der recources Ordner NICHT als recource ordner markiert ist!
 #### Application Thread
-Durch googlen fanden wir heraus, das Klassen nicht so leicht auf die GUI zugreifen können, wenn dieser auf einem Anderen Thread liegt. Auch durch andere Gründe gab es öfter Exceptions die auf JavaFX zuführen waren. Manchmal auch Exceptions welche in keiner der von uns geschrieben Klassen aufgerufen wurde, bzw. keiner der von uns geschriebenen Klassen tauchte im Stacktrace auf. 
+Durch googlen fanden wir heraus, dass Klassen nicht so leicht auf die GUI zugreifen können, wenn dieser auf einem anderen Thread liegt. Auch durch andere Gründe gab es öfter Exceptions die auf JavaFX zuführen waren. Manchmal auch Exceptions welche in keiner der von uns geschrieben Klassen aufgerufen wurde, bzw. keiner der von uns geschriebenen Klassen tauchte im Stacktrace auf. 
 ```Platform.runLater(()->);``` war die Lösung.
 #### Steuern der GUI Elemente für jeden einzelnen Spieler
 Am Anfang mussten wir uns Entscheiden zwischen dem Vorgehen jedes Datenpaket nur an dem bestimmten Spieler zu verschicken, oder alles an Alle zu verschicken und einfach nur beim richtigen Spieler "wirken" zu lassen. Die aktuelle Lösung ist ein Gemisch von beiden dieser Versionen. Chatnachrichten werden Nachts bspw. an Alle Spieler verschickt. sollte man selber allerdings Town sein, werden diese nicht angezeigt.
@@ -272,7 +272,9 @@ Jeder von uns hat hat sehr viel Spaß gehabt beim Entwickeln dieses Spiels, was 
 _Geplant ist es das Spiel privat weiterzuentwickeln und Ideen einzufügen für die aufgrund von Zeitdruck keine Zeit war!_ <br>
 
 ### Quellenangaben
-Das Logo ist mit Gimp aus folgenden Elementen erstellt worden <br>
-[Bild des Werwolfs](http://runescape.wikia.com/wiki/File:Werewolf_(Heist).png)<br>
-[Hintergrund Bild](https://forum.unity.com/attachments/03-jpg.55294/)<br>
-[Bild des Mondes](http://www.pngmart.com/files/4/Moon-PNG-Image.png)
+Das Logo "background_0.1.0" ist mit Gimp aus folgenden Elementen erstellt worden:
+- [Bild des Werwolfs](http://runescape.wikia.com/wiki/File:Werewolf_(Heist).png),
+- [Hintergrund Bild](https://forum.unity.com/attachments/03-jpg.55294/),
+- [Bild des Mondes](http://www.pngmart.com/files/4/Moon-PNG-Image.png).
+
+Die neue Version "background_0.2.0" ist ein Gif, das ohne Veränderungen übernommen wurde

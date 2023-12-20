@@ -1,7 +1,4 @@
 package network.server;
-
-
-import exercises.JohannsLogikBude.StateMachine.GameCycle;
 import network.Datapacket;
 import network.model.Message;
 import network.model.Tuple;
@@ -22,7 +19,6 @@ public class Server implements Runnable{
 
 
     private WerewolfgameServer gameServer;
-    private GameCycle gameCycle;
     /**
      * saves a tuple of the Objectoutputstreams AND Username
      */

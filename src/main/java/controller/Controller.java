@@ -15,7 +15,6 @@ public abstract class Controller {
 
     public abstract void setPrimaryStage(Stage primaryStage);
     public abstract void setGame(Game game);
-    public abstract void Exit();
     public abstract void setTimer(int s);
     public abstract void incrementTimer();
     public abstract void sendMessage();
@@ -27,6 +26,14 @@ public abstract class Controller {
     public abstract void EnableVoteButtons();
     public abstract void DisableVoteButtons();
     public abstract void hideTimer();
-
     public abstract void addText(String s);
+    public void Exit(){
+        System.out.println("Exit Game");
+        System.exit(0);
+    }
+
+    public void openSettings(){
+        this.game.maximizeScreen();
+    }
+
 }

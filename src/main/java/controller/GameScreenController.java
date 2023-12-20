@@ -7,8 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import models.Player;
@@ -16,16 +14,12 @@ import network.Datapacket;
 import network.model.Message;
 import network.model.Tuple;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
  * @author Lukas Allermann */
 @SuppressWarnings("Duplicates")
-public class DayScreenController extends Controller{
-    @FXML
-    ImageView BackgroundDayScreen;
+public class GameScreenController extends Controller{
     @FXML
     TextArea RoleInformationField;
     @FXML
@@ -38,8 +32,6 @@ public class DayScreenController extends Controller{
     TextField ChatInputDay;
     @FXML
     ListView<String> AllyList;
-    @FXML
-    Label TimeLeftLabel;
     @FXML
     Label TimeLabel;
     @FXML
@@ -63,8 +55,6 @@ public class DayScreenController extends Controller{
     @FXML
     Button ButtonPlayer8;
     @FXML
-    Button ExitButton;
-    @FXML
     Label UsernameLabel;
     @FXML
     Button TestButton;
@@ -76,8 +66,6 @@ public class DayScreenController extends Controller{
     Label IPLabel;
     @FXML
     Label LabelUsername3;
-    @FXML
-    Label ServerLabel;
     @FXML
     Label LabelUsername4;
     @FXML
@@ -110,26 +98,14 @@ public class DayScreenController extends Controller{
         return ChatOutputDay.getText();
     }
     public void EnableHost(){
-        try {
-            System.out.println("Host");
-            ServerLabel.setVisible(true);
-            IPLabel.setVisible(true);
-            IPLabel.setText(Inet4Address.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Host");
+        IPLabel.setVisible(true);
+        IPLabel.setText(game.getServerIP());
     }
     @Override
     public void setGame(Game g){
         this.game = g;
     }
-    @Override
-    public void Exit(){
-        game.getPrimaryStage().hide();
-        System.out.println("Exit");
-        System.exit(0);
-    }
-
     @Override
     public void TestFunction(){
         game.callTownVotePhase(30);
@@ -141,8 +117,6 @@ public class DayScreenController extends Controller{
      * This function initializes the screen, creates the lists of labels and buttons, configures the chat
      */
     public void initScreen(){
-        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
-        BackgroundDayScreen.setImage(Background);
         EventWindowController.setGame(game);
         ChatInputDay.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -197,7 +171,6 @@ public class DayScreenController extends Controller{
     @Override
     public void setTimer(int seconds) {
         TimeLabel.setVisible(true);
-        TimeLeftLabel.setVisible(true);
         if (seconds > 599) throw new IllegalStateException();
         if(seconds < 60){
             TimerMinuteCounter = 0;
@@ -235,7 +208,6 @@ public class DayScreenController extends Controller{
     }
 
     public void hideTimer() {
-        TimeLeftLabel.setVisible(false);
         TimeLabel.setVisible(false);
     }
 
@@ -269,19 +241,15 @@ public class DayScreenController extends Controller{
             UsernameButtons.get(i).setVisible(false);
         }
     }
-    // was once used to Simulate ChatOutput
-    private void simulateChat(){
-        for(int i = 0; i < 3; i++){ ChatOutputDay.appendText("Test: Hallo Welt!\n");}
-    }
 
     /**
      * This help function gets the chat from the old scene and sets it in the new scene
      */
     private void updateChat(){
         if(game.getMe().getAlive()) ChatInputDay.setEditable(true);
-        if(game.getNightScreenController() != null){
-                Platform.runLater(()-> ChatOutputDay.setText(game.getNightScreenController().getChatData()));
-        }
+        // if(game.getNightScreenController() != null){// todo nur tagsüber nachrichten senden
+                Platform.runLater(()-> ChatOutputDay.setText(game.getGameScreenController().getChatData()));
+        //}
     }
 
     /**
@@ -530,6 +498,22 @@ public class DayScreenController extends Controller{
 
     public void callCupidEvent() {
         EventWindowController.initCupidEvent();
+    }
+
+    public void callHunterEvent() {
+        EventWindowController.initHunterEvent();
+    }
+
+    public void callWitchHealEvent(Player p) {
+        EventWindowController.initWitchEventHeal(p);
+    }
+
+    public void callWitchKillEvent() {
+        EventWindowController.initWitchEventKill();
+    }
+
+    public void callSeerEvent() {
+        EventWindowController.initSeerEvent();
     }
 
     public void endEvent() {

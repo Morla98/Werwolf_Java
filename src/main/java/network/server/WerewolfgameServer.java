@@ -75,7 +75,7 @@ public class WerewolfgameServer implements Runnable {
      */
     private boolean witchDeathPot;
     private int playerVotes[];
-    private int playerVoted = 0; // Numbers of players who votet
+    private int playerVoted = 0; // Numbers of players who voted
     private int oldPlayerVoted;
 
     /**

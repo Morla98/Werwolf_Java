@@ -6,15 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import network.client.Client;
 import network.model.Message;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * @author Lukas Allermann */
@@ -30,8 +29,6 @@ public class UsernameScreenController extends Controller {
     Label InfoLabel;
     @FXML
     TextField IPField;
-    @FXML
-    ImageView BackgroundUsernameScreen;
 
     public void EnableJoin(){
         setInfo("Enter the IP of your host");
@@ -104,8 +101,21 @@ public class UsernameScreenController extends Controller {
         setInfo("Local IP detected");
         IPField.setEditable(false);
         try {
-            IPField.setText(Inet4Address.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
+            String myAddress = "";
+            Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+            while (nets.hasMoreElements()){
+                List<InterfaceAddress> netInterface = nets.nextElement().getInterfaceAddresses();
+                for (InterfaceAddress interfaceAddress: netInterface) {
+                    String currAddress = interfaceAddress.getAddress().getHostAddress();
+                    System.out.println("Interface address: " + currAddress);
+                    if (currAddress.contains("192.168.")){
+                        myAddress = currAddress;
+                    }
+                    game.setServerIP(currAddress);
+                }
+            }
+            IPField.setText(myAddress);
+        } catch (SocketException e) {
             e.printStackTrace();
         }
         UsernameField.setOnKeyPressed(ke -> {
@@ -113,12 +123,6 @@ public class UsernameScreenController extends Controller {
                 SubmitUsername();
             }
         });
-    }
-    @Override
-    public void Exit(){
-        game.getPrimaryStage().hide();
-        System.out.println("Exit");
-        System.exit(0);
     }
     @Override
     public void TestFunction(){
@@ -177,7 +181,5 @@ public class UsernameScreenController extends Controller {
     @Override
     public void setPrimaryStage(Stage s){
         this.primaryStage = s;
-        Image Background = new Image(getClass().getResource("/backgrounds/background_0.2.0.gif").toString());
-        BackgroundUsernameScreen.setImage(Background);
     }
 }
